@@ -14,7 +14,7 @@ export function Header() {
           <Logo />
         </a>
 
-        <nav className="hidden items-center gap-9 md:flex">
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-9 md:flex">
           {NAV.map((item) => (
             <a
               key={item.href}
@@ -27,10 +27,10 @@ export function Header() {
         </nav>
 
         <a
-          href="#products"
-          className="rounded-full bg-ink px-5 py-2.5 text-[15px] font-semibold text-bg transition-opacity hover:opacity-90"
+          href="#contact"
+          className="rounded-full bg-ink px-5 py-2.5 text-[15px] font-semibold text-bg transition-transform hover:-translate-y-0.5"
         >
-          Our apps
+          Get in touch
         </a>
       </div>
     </header>

@@ -3,43 +3,51 @@
 /*
  * Sels AI Inc. — company site design tokens.
  *
- * Restrained editorial identity for the PARENT company (distinct from the
- * product brands: Vidso runs dark magenta/chartreuse, Charmsy its own).
- * Light, warm off-white, near-black ink, one deep accent. No purple.
- * Single source of truth for color, type, and radius.
+ * Editorial identity for the PARENT company (distinct from the product
+ * brands). Warm off-white paper, near-black ink, one deep slate accent —
+ * but alive: the two product brand colors (Vidso magenta, Charmsy teal)
+ * drift through the page as ambient light. No purple.
+ * Single source of truth for color, type, motion, and radius.
  */
 
 @theme {
   /* === Surfaces === */
-  --color-bg: #f7f5f1;
-  --color-bg-2: #f1eee8;
+  --color-bg: #f6f4ef;
+  --color-bg-2: #efece5;
   --color-surface: #ffffff;
   --color-surface-2: #fbfaf7;
 
   /* === Hairlines === */
-  --color-line: rgba(20, 18, 16, 0.1);
-  --color-line-2: rgba(20, 18, 16, 0.18);
+  --color-line: rgba(20, 18, 16, 0.09);
+  --color-line-2: rgba(20, 18, 16, 0.16);
 
   /* === Type === */
-  --color-ink: #171512;
-  --color-ink-2: rgba(23, 21, 18, 0.66);
-  --color-ink-3: rgba(23, 21, 18, 0.42);
+  --color-ink: #16140f;
+  --color-ink-2: rgba(22, 20, 15, 0.64);
+  --color-ink-3: rgba(22, 20, 15, 0.4);
 
-  /* === Accent (deep confident blue-slate; no purple) === */
+  /* === Accent (deep confident slate; no purple) === */
   --color-accent: #1f3a5f;
   --color-accent-2: #2f6f6a;
   --color-accent-ink: #ffffff;
+
+  /* === Product brand ambients (used as light, not as UI) === */
+  --color-vidso: #d81f80;
+  --color-charmsy: #2f6f6a;
 
   /* === Fonts (wired in layout.tsx via next/font) === */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-inter-tight), ui-sans-serif, sans-serif;
 
   /* === Radius === */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.625rem;
-  --radius-lg: 0.875rem;
-  --radius-xl: 1.125rem;
-  --radius-2xl: 1.5rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.375rem;
+  --radius-2xl: 1.75rem;
+
+  /* === Motion === */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 :root {
@@ -62,6 +70,7 @@ body {
   font-family: var(--font-sans);
   font-size: 18px;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -69,11 +78,162 @@ body {
   color: var(--color-accent-ink);
 }
 
-/* Subtle paper grain / vignette so the flat off-white has depth. */
-.bg-grain {
-  background-image: radial-gradient(
-    120% 120% at 50% 0%,
-    rgba(255, 255, 255, 0.7) 0%,
-    transparent 55%
+/* ============================================================
+ * Ambient aurora — soft blurred product-brand light that drifts
+ * behind the hero so the flat paper has depth and motion.
+ * ============================================================ */
+.aurora {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 130%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(70px);
+  opacity: 0.7;
+}
+.aurora::before,
+.aurora::after {
+  content: '';
+  position: absolute;
+  border-radius: 9999px;
+}
+.aurora::before {
+  width: 46vw;
+  height: 46vw;
+  left: -6vw;
+  top: 2vw;
+  background: radial-gradient(
+    circle at 30% 30%,
+    color-mix(in srgb, var(--color-vidso) 34%, transparent),
+    transparent 62%
   );
+  animation: aurora-a 22s var(--ease-out-soft) infinite alternate;
+}
+.aurora::after {
+  width: 42vw;
+  height: 42vw;
+  right: -4vw;
+  top: -4vw;
+  background: radial-gradient(
+    circle at 60% 40%,
+    color-mix(in srgb, var(--color-charmsy) 40%, transparent),
+    transparent 62%
+  );
+  animation: aurora-b 26s var(--ease-out-soft) infinite alternate;
+}
+
+/* A third slate bloom, centered, for cohesion with the company accent. */
+.aurora-slate {
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  left: 50%;
+  top: 30%;
+  translate: -50% 0;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+  opacity: 0.5;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--color-accent) 26%, transparent),
+    transparent 60%
+  );
+  animation: aurora-c 30s var(--ease-out-soft) infinite alternate;
+}
+
+@keyframes aurora-a {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(6vw, 4vw) scale(1.15);
+  }
+}
+@keyframes aurora-b {
+  from {
+    transform: translate(0, 0) scale(1.05);
+  }
+  to {
+    transform: translate(-5vw, 5vw) scale(0.92);
+  }
+}
+@keyframes aurora-c {
+  from {
+    transform: translate(-50%, 0) scale(0.9);
+  }
+  to {
+    transform: translate(-42%, 6vw) scale(1.1);
+  }
+}
+
+/* Fine paper grain via a top vignette so white sits on warmth. */
+.paper-top {
+  background-image: radial-gradient(
+    120% 80% at 50% -10%,
+    rgba(255, 255, 255, 0.85) 0%,
+    transparent 60%
+  );
+}
+
+/* ============================================================
+ * Marquee — the app names ticker.
+ * ============================================================ */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 34s linear infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ============================================================
+ * Entrance reveals — CSS-only, staggered via inline delay.
+ * ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: rise 0.9s var(--ease-out-soft) forwards;
+}
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-vidso),
+    var(--color-accent) 55%,
+    var(--color-charmsy)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora::before,
+  .aurora::after,
+  .aurora-slate,
+  .marquee,
+  .reveal {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

@@ -1,5 +1,6 @@
 export type Product = {
   name: string;
+  category: string;
   tagline: string;
   description: string;
   href: string;
@@ -15,16 +16,18 @@ export type Product = {
 export const PRODUCTS: Product[] = [
   {
     name: 'Vidso',
+    category: 'AI Video',
     tagline: 'One prompt. One banger.',
     description:
       'AI-generated vertical video. Script, scenes, voice, and a finished cut from a single prompt — built for creators who post every day.',
     href: 'https://vidso.ai',
     platforms: ['iOS', 'Android', 'Web'],
-    accent: '#c81e78',
+    accent: '#d81f80',
     status: 'live',
   },
   {
     name: 'Charmsy',
+    category: 'AI Companions',
     tagline: 'Companions who remember you.',
     description:
       'AI characters with memory and personality, tuned for immersion over accuracy. Unlimited conversation, a cast that grows with you.',

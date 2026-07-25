@@ -4,6 +4,7 @@ import { Footer } from '@/components/footer';
 import { Header } from '@/components/header';
 import { Hero } from '@/components/hero';
 import { Products } from '@/components/products';
+import { Stats } from '@/components/stats';
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
       <Header />
       <main>
         <Hero />
+        <Stats />
         <Products />
         <Company />
         <Contact />
