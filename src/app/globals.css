@@ -1,0 +1,79 @@
+@import 'tailwindcss';
+
+/*
+ * Sels AI Inc. — company site design tokens.
+ *
+ * Restrained editorial identity for the PARENT company (distinct from the
+ * product brands: Vidso runs dark magenta/chartreuse, Charmsy its own).
+ * Light, warm off-white, near-black ink, one deep accent. No purple.
+ * Single source of truth for color, type, and radius.
+ */
+
+@theme {
+  /* === Surfaces === */
+  --color-bg: #f7f5f1;
+  --color-bg-2: #f1eee8;
+  --color-surface: #ffffff;
+  --color-surface-2: #fbfaf7;
+
+  /* === Hairlines === */
+  --color-line: rgba(20, 18, 16, 0.1);
+  --color-line-2: rgba(20, 18, 16, 0.18);
+
+  /* === Type === */
+  --color-ink: #171512;
+  --color-ink-2: rgba(23, 21, 18, 0.66);
+  --color-ink-3: rgba(23, 21, 18, 0.42);
+
+  /* === Accent (deep confident blue-slate; no purple) === */
+  --color-accent: #1f3a5f;
+  --color-accent-2: #2f6f6a;
+  --color-accent-ink: #ffffff;
+
+  /* === Fonts (wired in layout.tsx via next/font) === */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-inter-tight), ui-sans-serif, sans-serif;
+
+  /* === Radius === */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.125rem;
+  --radius-2xl: 1.5rem;
+}
+
+:root {
+  color-scheme: light;
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+/* Subtle paper grain / vignette so the flat off-white has depth. */
+.bg-grain {
+  background-image: radial-gradient(
+    120% 120% at 50% 0%,
+    rgba(255, 255, 255, 0.7) 0%,
+    transparent 55%
+  );
+}
