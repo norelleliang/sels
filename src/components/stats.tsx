@@ -1,26 +1,30 @@
+import { Reveal } from './reveal';
+
 const STATS = [
   { value: '2', label: 'apps live' },
-  { value: '3', label: 'platforms — iOS, Android, Web' },
-  { value: '2', label: 'categories — video & companions' },
-  { value: '1', label: 'team, built in-house' },
+  { value: '3', label: 'platforms' },
+  { value: '2', label: 'categories' },
+  { value: '1', label: 'team, in-house' },
 ];
 
 export function Stats() {
   return (
-    <section className="border-t border-line bg-bg">
-      <div className="mx-auto max-w-6xl px-6 py-14 md:py-16">
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
-          {STATS.map((stat) => (
-            <div key={stat.label} className="flex flex-col">
-              <span className="font-display text-5xl font-extrabold tracking-tight text-ink md:text-6xl">
-                {stat.value}
-              </span>
-              <span className="mt-2 text-[15px] leading-snug font-medium text-ink-2">
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </div>
+    <section className="bg-bg-gray">
+      <div className="mx-auto max-w-5xl px-6 py-20 md:py-24">
+        <Reveal>
+          <div className="grid grid-cols-2 gap-y-12 md:grid-cols-4">
+            {STATS.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="font-display text-6xl font-semibold tracking-[-0.03em] text-ink md:text-7xl">
+                  {stat.value}
+                </div>
+                <div className="mt-2 text-[16px] font-medium text-ink-2">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -4,12 +4,11 @@ export function Logo({ className }: { className?: string }) {
   return (
     <span
       className={cn(
-        'font-display text-[22px] font-extrabold tracking-tight text-ink',
+        'font-display text-[21px] font-semibold tracking-[-0.02em] text-ink',
         className
       )}
     >
-      Sels
-      <span className="text-accent">AI</span>
+      Sels AI
     </span>
   );
 }

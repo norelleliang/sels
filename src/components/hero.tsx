@@ -1,86 +1,50 @@
-import { ArrowRight } from 'lucide-react';
-
-import { PRODUCTS } from '@/lib/products';
-
-const MARQUEE = [...PRODUCTS, ...PRODUCTS, ...PRODUCTS, ...PRODUCTS];
-
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden">
-      {/* Ambient product-brand light drifting behind the paper. */}
-      <div className="aurora" aria-hidden />
-      <div className="aurora-slate" aria-hidden />
-      <div className="paper-top absolute inset-0" aria-hidden />
+    <section
+      id="top"
+      className="relative flex min-h-[92vh] items-center justify-center overflow-hidden bg-bg-black text-center"
+    >
+      <div className="hero-glow" aria-hidden />
+      {/* Vignette to seat the glow into true black at the edges. */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(120% 90% at 50% 45%, transparent 30%, #000 78%)',
+        }}
+        aria-hidden
+      />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 pt-28 pb-24 md:pt-40 md:pb-32">
-        <div
-          className="reveal inline-flex items-center gap-2.5 rounded-full border border-line-2 bg-surface/70 px-4 py-1.5 backdrop-blur-sm"
-          style={{ animationDelay: '0ms' }}
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-2 opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-2" />
-          </span>
-          <span className="text-[14px] font-semibold tracking-wide text-ink-2 uppercase">
-            Sels AI Inc. — a consumer AI company
-          </span>
-        </div>
-
-        <h1
-          className="reveal mt-8 max-w-5xl font-display text-[3.25rem] leading-[0.98] font-extrabold tracking-[-0.03em] text-ink md:text-[6rem]"
-          style={{ animationDelay: '90ms' }}
-        >
-          Consumer AI
-          <br />
-          people use{' '}
-          <span className="text-gradient">every day.</span>
-        </h1>
-
-        <p
-          className="reveal mt-9 max-w-2xl text-xl leading-relaxed text-ink-2 md:text-2xl"
-          style={{ animationDelay: '180ms' }}
-        >
-          We design, build, and operate a portfolio of AI apps — from
-          one-prompt video to companions who remember you. One company,
-          shipping real products to real users.
+      <div className="relative z-10 mx-auto max-w-4xl px-6">
+        <p className="text-[15px] font-semibold tracking-[0.24em] text-ink-inv-2 uppercase">
+          Sels AI Inc.
         </p>
 
-        <div
-          className="reveal mt-12 flex flex-wrap items-center gap-4"
-          style={{ animationDelay: '270ms' }}
-        >
-          <a
-            href="#products"
-            className="group inline-flex items-center gap-2 rounded-full bg-ink px-8 py-4 text-[17px] font-semibold text-bg shadow-[0_16px_40px_-16px_rgba(22,20,15,0.6)] transition-transform hover:-translate-y-0.5"
-          >
+        <h1 className="mt-6 font-display text-[3.5rem] leading-[0.95] font-semibold tracking-[-0.03em] text-ink-inv md:text-[7rem]">
+          Consumer AI,
+          <br />
+          made to be used.
+        </h1>
+
+        <p className="mx-auto mt-8 max-w-2xl text-xl leading-relaxed text-ink-inv-2 md:text-2xl">
+          We design, build, and operate a portfolio of AI apps people open
+          every day — from one-prompt video to companions who remember you.
+        </p>
+
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[19px]">
+          <a href="#products" className="applink">
             Explore our apps
-            <ArrowRight className="h-4.5 w-4.5 transition-transform group-hover:translate-x-0.5" />
           </a>
-          <a
-            href="#company"
-            className="rounded-full border border-line-2 bg-surface/60 px-8 py-4 text-[17px] font-semibold text-ink backdrop-blur-sm transition-colors hover:bg-surface"
-          >
+          <a href="#company" className="applink">
             About the company
           </a>
         </div>
       </div>
 
-      {/* App-name ticker along the base of the hero. */}
-      <div className="relative z-10 border-y border-line bg-surface/50 py-5 backdrop-blur-sm">
-        <div className="flex items-center gap-8 overflow-hidden">
-          <div className="marquee items-center gap-8">
-            {MARQUEE.map((p, i) => (
-              <div key={`${p.name}-${i}`} className="flex items-center gap-8">
-                <span className="font-display text-2xl font-bold tracking-tight text-ink/85">
-                  {p.name}
-                </span>
-                <span
-                  className="h-1.5 w-1.5 shrink-0 rounded-full"
-                  style={{ backgroundColor: p.accent }}
-                />
-              </div>
-            ))}
-          </div>
+      {/* Scroll cue. */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+        <div className="flex h-9 w-6 items-start justify-center rounded-full border border-ink-inv/25 p-1.5">
+          <span className="h-2 w-1 animate-bounce rounded-full bg-ink-inv/60" />
         </div>
       </div>
     </section>

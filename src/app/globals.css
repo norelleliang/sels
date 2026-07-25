@@ -1,52 +1,52 @@
 @import 'tailwindcss';
 
 /*
- * Sels AI Inc. — company site design tokens.
+ * Sels AI Inc. — company site.
  *
- * Editorial identity for the PARENT company (distinct from the product
- * brands). Warm off-white paper, near-black ink, one deep slate accent —
- * but alive: the two product brand colors (Vidso magenta, Charmsy teal)
- * drift through the page as ambient light. No purple.
- * Single source of truth for color, type, motion, and radius.
+ * Apple-grade minimalism: near-white and true-black canvases, enormous
+ * tight display type, generous negative space, product moments that fill
+ * the viewport. Color is restrained to neutrals; each app's brand color
+ * appears only inside its own product moment. No purple.
  */
 
 @theme {
-  /* === Surfaces === */
-  --color-bg: #f6f4ef;
-  --color-bg-2: #efece5;
-  --color-surface: #ffffff;
-  --color-surface-2: #fbfaf7;
+  /* === Canvases === */
+  --color-bg: #ffffff;
+  --color-bg-gray: #f5f5f7; /* Apple's section gray */
+  --color-bg-black: #000000;
+
+  /* === Ink === */
+  --color-ink: #1d1d1f;
+  --color-ink-2: #6e6e73;
+  --color-ink-3: #86868b;
+
+  /* On black */
+  --color-ink-inv: #f5f5f7;
+  --color-ink-inv-2: #a1a1a6;
+
+  /* === Link / accent (restrained tech blue; no purple) === */
+  --color-link: #0071e3;
+  --color-link-hover: #0077ed;
 
   /* === Hairlines === */
-  --color-line: rgba(20, 18, 16, 0.09);
-  --color-line-2: rgba(20, 18, 16, 0.16);
+  --color-line: rgba(0, 0, 0, 0.08);
+  --color-line-inv: rgba(255, 255, 255, 0.12);
 
-  /* === Type === */
-  --color-ink: #16140f;
-  --color-ink-2: rgba(22, 20, 15, 0.64);
-  --color-ink-3: rgba(22, 20, 15, 0.4);
-
-  /* === Accent (deep confident slate; no purple) === */
-  --color-accent: #1f3a5f;
-  --color-accent-2: #2f6f6a;
-  --color-accent-ink: #ffffff;
-
-  /* === Product brand ambients (used as light, not as UI) === */
-  --color-vidso: #d81f80;
-  --color-charmsy: #2f6f6a;
+  /* === Product brand ambients (used only inside product moments) === */
+  --color-vidso: #ff2d78;
+  --color-charmsy: #2dd4bf;
 
   /* === Fonts (wired in layout.tsx via next/font) === */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-inter-tight), ui-sans-serif, sans-serif;
 
   /* === Radius === */
-  --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.375rem;
-  --radius-2xl: 1.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 2.25rem;
+  --radius-phone: 2.75rem;
 
-  /* === Motion === */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -54,12 +54,9 @@
   color-scheme: light;
 }
 
-* {
-  border-color: var(--color-line);
-}
-
 html {
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
 }
@@ -69,169 +66,106 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-accent-ink);
+  background: var(--color-link);
+  color: #fff;
+}
+
+/* Apple-style inline link with chevron. */
+.applink {
+  color: var(--color-link);
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+.applink:hover {
+  color: var(--color-link-hover);
+}
+.applink::after {
+  content: ' ›';
+  font-weight: 400;
 }
 
 /* ============================================================
- * Ambient aurora — soft blurred product-brand light that drifts
- * behind the hero so the flat paper has depth and motion.
+ * Scroll-reveal — driven by the <Reveal> client component,
+ * which flips [data-reveal] to [data-reveal='in'] on intersect.
  * ============================================================ */
-.aurora {
-  position: absolute;
-  inset: -20% -10% auto -10%;
-  height: 130%;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(70px);
-  opacity: 0.7;
-}
-.aurora::before,
-.aurora::after {
-  content: '';
-  position: absolute;
-  border-radius: 9999px;
-}
-.aurora::before {
-  width: 46vw;
-  height: 46vw;
-  left: -6vw;
-  top: 2vw;
-  background: radial-gradient(
-    circle at 30% 30%,
-    color-mix(in srgb, var(--color-vidso) 34%, transparent),
-    transparent 62%
-  );
-  animation: aurora-a 22s var(--ease-out-soft) infinite alternate;
-}
-.aurora::after {
-  width: 42vw;
-  height: 42vw;
-  right: -4vw;
-  top: -4vw;
-  background: radial-gradient(
-    circle at 60% 40%,
-    color-mix(in srgb, var(--color-charmsy) 40%, transparent),
-    transparent 62%
-  );
-  animation: aurora-b 26s var(--ease-out-soft) infinite alternate;
-}
-
-/* A third slate bloom, centered, for cohesion with the company accent. */
-.aurora-slate {
-  position: absolute;
-  width: 40vw;
-  height: 40vw;
-  left: 50%;
-  top: 30%;
-  translate: -50% 0;
-  border-radius: 9999px;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(80px);
-  opacity: 0.5;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--color-accent) 26%, transparent),
-    transparent 60%
-  );
-  animation: aurora-c 30s var(--ease-out-soft) infinite alternate;
-}
-
-@keyframes aurora-a {
-  from {
-    transform: translate(0, 0) scale(1);
-  }
-  to {
-    transform: translate(6vw, 4vw) scale(1.15);
-  }
-}
-@keyframes aurora-b {
-  from {
-    transform: translate(0, 0) scale(1.05);
-  }
-  to {
-    transform: translate(-5vw, 5vw) scale(0.92);
-  }
-}
-@keyframes aurora-c {
-  from {
-    transform: translate(-50%, 0) scale(0.9);
-  }
-  to {
-    transform: translate(-42%, 6vw) scale(1.1);
-  }
-}
-
-/* Fine paper grain via a top vignette so white sits on warmth. */
-.paper-top {
-  background-image: radial-gradient(
-    120% 80% at 50% -10%,
-    rgba(255, 255, 255, 0.85) 0%,
-    transparent 60%
-  );
-}
-
-/* ============================================================
- * Marquee — the app names ticker.
- * ============================================================ */
-.marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 34s linear infinite;
-}
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-/* ============================================================
- * Entrance reveals — CSS-only, staggered via inline delay.
- * ============================================================ */
-.reveal {
+[data-reveal] {
   opacity: 0;
-  transform: translateY(18px);
-  animation: rise 0.9s var(--ease-out-soft) forwards;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s var(--ease-out-soft),
+    transform 0.9s var(--ease-out-soft);
+  will-change: opacity, transform;
 }
-@keyframes rise {
+[data-reveal='in'] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+ * Hero glow — a single slow-breathing bloom for the black
+ * canvas so it reads high-tech, not empty.
+ * ============================================================ */
+.hero-glow {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: min(90vw, 900px);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.55;
+  background: conic-gradient(
+    from 0deg,
+    var(--color-vidso),
+    var(--color-link),
+    var(--color-charmsy),
+    var(--color-vidso)
+  );
+  animation:
+    glow-spin 24s linear infinite,
+    glow-breathe 9s var(--ease-out-soft) infinite alternate;
+}
+@keyframes glow-spin {
   to {
-    opacity: 1;
-    transform: translateY(0);
+    rotate: 360deg;
+  }
+}
+@keyframes glow-breathe {
+  from {
+    opacity: 0.4;
+    scale: 0.92;
+  }
+  to {
+    opacity: 0.62;
+    scale: 1.06;
   }
 }
 
-.text-gradient {
+/* Phone-frame screen sheen. */
+.screen-sheen {
   background: linear-gradient(
-    100deg,
-    var(--color-vidso),
-    var(--color-accent) 55%,
-    var(--color-charmsy)
+    150deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 35%
   );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aurora::before,
-  .aurora::after,
-  .aurora-slate,
-  .marquee,
-  .reveal {
+  .hero-glow {
     animation: none;
   }
-  .reveal {
+  [data-reveal] {
     opacity: 1;
     transform: none;
+    transition: none;
   }
   html {
     scroll-behavior: auto;
