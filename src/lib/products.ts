@@ -1,40 +1,60 @@
+export type ProductSpec = {
+  label: string;
+  value: string;
+};
+
 export type Product = {
   name: string;
-  category: string;
+  statusLabel: string;
+  accent: string;
   tagline: string;
   description: string;
+  specs: ProductSpec[];
   href: string;
-  platforms: string[];
-  accent: string;
-  status: 'live' | 'coming-soon';
+  hrefLabel: string;
+  visualGradient: string;
+  placeholder: string;
 };
 
 /**
- * The apps Sels AI Inc. builds and operates. Add future apps here — the
- * portfolio grid renders straight from this list.
+ * The apps Sels AI Inc. builds and operates. The showcase renders straight
+ * from this list — new products append here and alternate sides by index
+ * parity, no layout work.
  */
 export const PRODUCTS: Product[] = [
   {
     name: 'Vidso',
-    category: 'AI Video',
+    statusLabel: 'Live · Video',
+    accent: '#c81e78',
     tagline: 'One prompt. One banger.',
     description:
-      'AI-generated vertical video. Script, scenes, voice, and a finished cut from a single prompt — built for creators who post every day.',
+      "Script, scenes, voice and a finished vertical cut from a single line of text. Built for people who post every day and can't wait on a production day.",
+    specs: [
+      { label: 'Time to first cut', value: 'Under a minute' },
+      { label: 'Made in-house', value: 'Script → voice → edit' },
+      { label: 'Platforms', value: 'iOS · Android · Web' },
+    ],
     href: 'https://vidso.ai',
-    platforms: ['iOS', 'Android', 'Web'],
-    accent: '#d81f80',
-    status: 'live',
+    hrefLabel: 'Visit vidso.ai',
+    visualGradient: 'linear-gradient(160deg,#fdf0f7,#f5f5f7)',
+    placeholder: '[ vidso app screen ]',
   },
   {
     name: 'Charmsy',
-    category: 'AI Companions',
+    statusLabel: 'Live · Companionship',
+    accent: '#2f6f6a',
     tagline: 'Companions who remember you.',
     description:
-      'AI characters with memory and personality, tuned for immersion over accuracy. Unlimited conversation, a cast that grows with you.',
+      'Characters with real memory and personality, tuned for immersion over accuracy. A cast that grows with the person talking to it.',
+    specs: [
+      { label: 'Memory', value: 'Long-horizon, per character' },
+      { label: 'Conversation', value: 'Unmetered' },
+      { label: 'Platforms', value: 'iOS · Android · Web' },
+    ],
     href: 'https://charmsy.io',
-    platforms: ['iOS', 'Android', 'Web'],
-    accent: '#2f6f6a',
-    status: 'live',
+    hrefLabel: 'Visit charmsy.io',
+    visualGradient: 'linear-gradient(160deg,#eef7f5,#f5f5f7)',
+    placeholder: '[ charmsy app screen ]',
   },
 ];
 
@@ -43,5 +63,4 @@ export const COMPANY = {
   name: 'Sels AI',
   domain: 'sels.ai',
   email: 'hello@sels.ai',
-  tagline: 'We build consumer AI products people use every day.',
 };

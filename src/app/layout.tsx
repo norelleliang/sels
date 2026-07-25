@@ -1,25 +1,25 @@
 import type { Metadata } from 'next';
-import { Inter, Inter_Tight } from 'next/font/google';
+import { IBM_Plex_Mono, Instrument_Sans } from 'next/font/google';
 
 import './globals.css';
 
-const inter = Inter({
+const instrument = Instrument_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-inter',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-instrument',
   display: 'swap',
 });
 
-const interTight = Inter_Tight({
+const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
-  variable: '--font-inter-tight',
+  weight: ['400', '500'],
+  variable: '--font-plex',
   display: 'swap',
 });
 
-const TITLE = 'Sels AI — Consumer AI products people use every day';
+const TITLE = 'Sels AI — Consumer AI, built to be used every day';
 const DESCRIPTION =
-  'Sels AI Inc. is the company behind Vidso and Charmsy. We design, build, and operate consumer AI apps across video and companionship.';
+  'Sels AI Inc. designs, builds, and operates a portfolio of AI apps end to end — models, pipelines, product, distribution. The company behind Vidso and Charmsy.';
 
 export const metadata: Metadata = {
   title: {
@@ -48,7 +48,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${interTight.variable}`}>
+    <html
+      lang="en"
+      className={`${instrument.variable} ${plexMono.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

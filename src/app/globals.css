@@ -1,53 +1,43 @@
 @import 'tailwindcss';
 
 /*
- * Sels AI Inc. — company site.
+ * Sels AI Inc. — company marketing site.
  *
- * Apple-grade minimalism: near-white and true-black canvases, enormous
- * tight display type, generous negative space, product moments that fill
- * the viewport. Color is restrained to neutrals; each app's brand color
- * appears only inside its own product moment. No purple.
+ * Light, high-tech, minimal register per the design handoff: white and
+ * light-grey surfaces, near-black ink, no shadows — depth comes from
+ * hairlines and two soft radial gradients. Type is Instrument Sans with
+ * IBM Plex Mono for micro labels. Single source of truth for tokens.
  */
 
 @theme {
-  /* === Canvases === */
+  /* === Surfaces === */
   --color-bg: #ffffff;
-  --color-bg-gray: #f5f5f7; /* Apple's section gray */
-  --color-bg-black: #000000;
+  --color-surface-alt: #f5f5f7;
 
   /* === Ink === */
-  --color-ink: #1d1d1f;
-  --color-ink-2: #6e6e73;
-  --color-ink-3: #86868b;
-
-  /* On black */
-  --color-ink-inv: #f5f5f7;
-  --color-ink-inv-2: #a1a1a6;
-
-  /* === Link / accent (restrained tech blue; no purple) === */
-  --color-link: #0071e3;
-  --color-link-hover: #0077ed;
+  --color-ink: #161617;
+  --color-ink-60: rgba(22, 22, 23, 0.6);
+  --color-ink-62: rgba(22, 22, 23, 0.62);
+  --color-ink-50: rgba(22, 22, 23, 0.5);
+  --color-ink-45: rgba(22, 22, 23, 0.45);
+  --color-ink-40: rgba(22, 22, 23, 0.4);
 
   /* === Hairlines === */
-  --color-line: rgba(0, 0, 0, 0.08);
-  --color-line-inv: rgba(255, 255, 255, 0.12);
+  --color-hairline: rgba(22, 22, 23, 0.1);
+  --color-hairline-08: rgba(22, 22, 23, 0.08);
+  --color-hairline-16: rgba(22, 22, 23, 0.16);
+  --color-hairline-20: rgba(22, 22, 23, 0.2);
 
-  /* === Product brand ambients (used only inside product moments) === */
-  --color-vidso: #ff2d78;
-  --color-charmsy: #2dd4bf;
+  /* === Button === */
+  --color-btn-hover: #3a3a3c;
+
+  /* === Product brand accents === */
+  --color-vidso: #c81e78;
+  --color-charmsy: #2f6f6a;
 
   /* === Fonts (wired in layout.tsx via next/font) === */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-inter-tight), ui-sans-serif, sans-serif;
-
-  /* === Radius === */
-  --radius-md: 0.75rem;
-  --radius-lg: 1.25rem;
-  --radius-xl: 1.75rem;
-  --radius-2xl: 2.25rem;
-  --radius-phone: 2.75rem;
-
-  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-sans: var(--font-instrument), system-ui, sans-serif;
+  --font-mono: var(--font-plex), ui-monospace, monospace;
 }
 
 :root {
@@ -55,119 +45,60 @@
 }
 
 html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
   background: var(--color-bg);
   color: var(--color-ink);
   font-family: var(--font-sans);
-  font-size: 18px;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-wrap: pretty;
   overflow-x: hidden;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 ::selection {
-  background: var(--color-link);
+  background: var(--color-ink);
   color: #fff;
 }
 
-/* Apple-style inline link with chevron. */
-.applink {
-  color: var(--color-link);
-  font-weight: 400;
-  transition: color 0.2s ease;
-}
-.applink:hover {
-  color: var(--color-link-hover);
-}
-.applink::after {
-  content: ' ›';
-  font-weight: 400;
-}
-
-/* ============================================================
- * Scroll-reveal — driven by the <Reveal> client component,
- * which flips [data-reveal] to [data-reveal='in'] on intersect.
- * ============================================================ */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.9s var(--ease-out-soft),
-    transform 0.9s var(--ease-out-soft);
-  will-change: opacity, transform;
-}
-[data-reveal='in'] {
-  opacity: 1;
-  transform: none;
-}
-
-/* ============================================================
- * Hero glow — a single slow-breathing bloom for the black
- * canvas so it reads high-tech, not empty.
- * ============================================================ */
-.hero-glow {
-  position: absolute;
-  left: 50%;
-  top: 42%;
-  width: min(90vw, 900px);
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  pointer-events: none;
-  border-radius: 9999px;
-  filter: blur(90px);
-  opacity: 0.55;
-  background: conic-gradient(
-    from 0deg,
-    var(--color-vidso),
-    var(--color-link),
-    var(--color-charmsy),
-    var(--color-vidso)
-  );
-  animation:
-    glow-spin 24s linear infinite,
-    glow-breathe 9s var(--ease-out-soft) infinite alternate;
-}
-@keyframes glow-spin {
-  to {
-    rotate: 360deg;
+@keyframes cueDrop {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
   }
-}
-@keyframes glow-breathe {
-  from {
-    opacity: 0.4;
-    scale: 0.92;
+  35% {
+    opacity: 1;
   }
-  to {
-    opacity: 0.62;
-    scale: 1.06;
+  100% {
+    transform: translateY(12px);
+    opacity: 0;
   }
 }
 
-/* Phone-frame screen sheen. */
-.screen-sheen {
-  background: linear-gradient(
-    150deg,
-    rgba(255, 255, 255, 0.22) 0%,
-    transparent 35%
-  );
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -30px, 0) scale(1.06);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-glow {
-    animation: none;
-  }
-  [data-reveal] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
   html {
     scroll-behavior: auto;
+  }
+  [data-orb],
+  [data-cue] {
+    animation: none !important;
   }
 }
