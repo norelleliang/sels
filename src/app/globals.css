@@ -44,29 +44,36 @@
   color-scheme: light;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+/*
+ * Base resets live in @layer base so Tailwind utilities (text-white,
+ * text-ink-60, …) always win. Unlayered rules would override utilities in
+ * v4 — that once hid white button text on the dark buttons.
+ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-body {
-  margin: 0;
-  background: var(--color-bg);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-wrap: pretty;
-  overflow-x: hidden;
-}
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-wrap: pretty;
+    overflow-x: hidden;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-::selection {
-  background: var(--color-ink);
-  color: #fff;
+  ::selection {
+    background: var(--color-ink);
+    color: #fff;
+  }
 }
 
 @keyframes cueDrop {

@@ -1,53 +1,29 @@
 /**
- * Sels AI logo mark: a rounded ink square holding an open white ring
- * (rotated, right edge removed) plus a dot at bottom-right. Drawn in CSS
- * per the handoff. `nav` shows the wordmark; `footer` is the mark alone.
+ * Sels AI logo mark: an app-icon-style rounded ink tile holding a clean
+ * geometric "S" monogram (two arcs, round caps). Reads as a portfolio /
+ * app company. `nav` shows the wordmark; `footer` is the mark alone.
  */
 export function LogoMark({ variant = 'nav' }: { variant?: 'nav' | 'footer' }) {
-  const nav = variant === 'nav';
-  const box = nav ? 28 : 22;
-  const radius = nav ? 9 : 7;
-  const ring = nav ? 13 : 10;
-  const ringBorder = nav ? 2 : 1.5;
-  const dot = nav ? 5 : 4;
-  const inset = nav ? 5 : 4;
+  const size = variant === 'nav' ? 28 : 22;
 
   return (
-    <span
-      style={{
-        position: 'relative',
-        width: box,
-        height: box,
-        borderRadius: radius,
-        background: '#161617',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-      }}
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      style={{ flexShrink: 0, display: 'block' }}
     >
-      <span
-        style={{
-          width: ring,
-          height: ring,
-          border: `${ringBorder}px solid #fff`,
-          borderRadius: '50%',
-          borderRightColor: 'transparent',
-          transform: 'rotate(-45deg)',
-        }}
+      <rect width="32" height="32" rx="8" fill="#161617" />
+      <path
+        d="M21 11a5 5 0 1 0-5 5 5 5 0 1 1-5 5"
+        stroke="#ffffff"
+        strokeWidth="3"
+        strokeLinecap="round"
       />
-      <span
-        style={{
-          position: 'absolute',
-          right: inset,
-          bottom: inset,
-          width: dot,
-          height: dot,
-          borderRadius: '50%',
-          background: '#fff',
-        }}
-      />
-    </span>
+    </svg>
   );
 }
 
@@ -56,7 +32,7 @@ export function Logo() {
     <a
       href="#top"
       aria-label="Sels AI home"
-      style={{ display: 'flex', alignItems: 'center', gap: 11 }}
+      style={{ display: 'flex', alignItems: 'center', gap: 10 }}
     >
       <LogoMark variant="nav" />
       <span
